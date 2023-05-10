@@ -1,4 +1,4 @@
-package com.driagon.microservicios.usuarios.app.models;
+package com.driagon.commons.alumnos.app.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -71,5 +71,21 @@ public class Alumno implements Serializable {
     @PrePersist
     public void prePersist() {
         this.createAt = new Date();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Alumno)) {
+            return false;
+        }
+
+        Alumno a = (Alumno) obj;
+
+        return a.id != null && this.id.equals(a.getId());
     }
 }

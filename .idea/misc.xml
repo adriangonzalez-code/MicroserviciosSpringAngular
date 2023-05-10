@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/microservicios-examenes" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/microservicios-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-usuarios/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/commons-microservicios/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-cursos/pom.xml" />
+        <option value="$PROJECT_DIR$/commons-alumnos/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-examenes/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="jpab" />
+  </component>
+</project>

@@ -1,16 +1,11 @@
 package com.driagon.microservicios.usuarios.app.services;
 
-import com.driagon.microservicios.usuarios.app.models.Alumno;
+import com.driagon.commons.alumnos.app.models.Alumno;
+import com.driagon.microservicios.commons.app.services.ICommonService;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface IAlumnoService {
+public interface IAlumnoService extends ICommonService<Alumno> {
 
-    public Iterable<Alumno> findAll();
-
-    public Optional<Alumno> findById(Long id);
-
-    public Alumno save(Alumno alumno);
-
-    public void deleteById(Long id);
+    public List<Alumno> findByNombreOrApellido(String term);
 }
