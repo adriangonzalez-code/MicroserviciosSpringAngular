@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/commons-alumnos/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/commons-alumnos/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons-examenes/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/commons-microservicios/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/commons-microservicios/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservicios-cursos/src/main/java" charset="UTF-8" />

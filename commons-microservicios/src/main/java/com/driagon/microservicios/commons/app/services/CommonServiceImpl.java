@@ -1,12 +1,14 @@
 package com.driagon.microservicios.commons.app.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-public class CommonServiceImpl<E, R extends CrudRepository<E, Long>> implements ICommonService<E> {
+public class CommonServiceImpl<E, R extends PagingAndSortingRepository<E, Long>> implements ICommonService<E> {
 
     @Autowired
     protected R repository;
@@ -15,6 +17,12 @@ public class CommonServiceImpl<E, R extends CrudRepository<E, Long>> implements 
     @Transactional(readOnly = true)
     public Iterable<E> findAll() {
         return this.repository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<E> findAll(Pageable pageable) {
+        return this.repository.findAll(pageable);
     }
 
     @Override

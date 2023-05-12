@@ -1,8 +1,10 @@
 package com.driagon.microservicios.cursos.app.models;
 
+import com.driagon.common.examenes.app.models.Examen;
 import com.driagon.commons.alumnos.app.models.Alumno;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +21,7 @@ public class Curso implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotEmpty
     @Column(name = "nombre")
     private String nombre;
 
@@ -29,8 +32,12 @@ public class Curso implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Alumno> alumnos;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Examen> examenes;
+
     public Curso() {
         this.alumnos = new ArrayList<Alumno>();
+        this.examenes = new ArrayList<>();
     }
 
     public Long getId() {
@@ -71,6 +78,22 @@ public class Curso implements Serializable {
 
     public void removeAlumno(Alumno alumno) {
         this.alumnos.remove(alumno);
+    }
+
+    public List<Examen> getExamenes() {
+        return examenes;
+    }
+
+    public void setExamenes(List<Examen> examenes) {
+        this.examenes = examenes;
+    }
+
+    public void addExamen(Examen examen) {
+        this.examenes.add(examen);
+    }
+
+    public void removeExamen(Examen examen) {
+        this.examenes.remove(examen);
     }
 
     @PrePersist

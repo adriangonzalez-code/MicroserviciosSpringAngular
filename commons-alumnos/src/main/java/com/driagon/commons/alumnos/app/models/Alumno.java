@@ -1,6 +1,10 @@
 package com.driagon.commons.alumnos.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,18 +19,27 @@ public class Alumno implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotEmpty
     @Column(name = "nombre")
     private String nombre;
 
+    @NotEmpty
     @Column(name = "apellido")
     private String apellido;
 
+    @NotEmpty
+    @Email
     @Column(name = "email")
     private String email;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_at")
     private Date createAt;
+
+    @Lob
+    @JsonIgnore
+    @Column(name = "foto")
+    private byte[] foto;
 
     public Long getId() {
         return id;
@@ -66,6 +79,18 @@ public class Alumno implements Serializable {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public Integer getFotoHashCode() {
+        return (this.foto != null) ? this.foto.hashCode() : null;
     }
 
     @PrePersist

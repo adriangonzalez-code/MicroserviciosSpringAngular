@@ -1,13 +1,16 @@
 package com.driagon.microservicios.cursos.app.controllers;
 
+import com.driagon.common.examenes.app.models.Examen;
 import com.driagon.commons.alumnos.app.models.Alumno;
 import com.driagon.microservicios.commons.app.controllers.CommonController;
 import com.driagon.microservicios.cursos.app.models.Curso;
 import com.driagon.microservicios.cursos.app.services.ICursoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +18,12 @@ import java.util.Optional;
 public class CursoController extends CommonController<Curso, ICursoService> {
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editar(@RequestBody Curso curso, @PathVariable Long id) {
+    public ResponseEntity<?> editar(@Valid @RequestBody Curso curso, BindingResult result, @PathVariable Long id) {
+
+        if (result.hasErrors()) {
+            return super.validar(result);
+        }
+
         Optional<Curso> o = this.service.findById(id);
 
         if (!o.isPresent()) {
@@ -64,5 +72,36 @@ public class CursoController extends CommonController<Curso, ICursoService> {
 
         Curso curso = this.service.findCursoByAlumnoId(id);
         return ResponseEntity.ok(curso);
+    }
+
+    @PutMapping("/{id}/asignar-examenes")
+    public ResponseEntity<?> asignarExamenes(@RequestBody List<Examen> examenes, @PathVariable Long id) {
+        Optional<Curso> o = this.service.findById(id);
+
+        if (!o.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Curso dbCurso = o.get();
+        examenes.forEach(e -> {
+            dbCurso.addExamen(e);
+        });
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
+    }
+
+    @PutMapping("/{id}/eliminar-examen")
+    public ResponseEntity<?> eliminarExamen(@RequestBody Examen examen, @PathVariable Long id) {
+        Optional<Curso> o = this.service.findById(id);
+
+        if (!o.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Curso dbCurso = o.get();
+
+        dbCurso.removeExamen(examen);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
     }
 }

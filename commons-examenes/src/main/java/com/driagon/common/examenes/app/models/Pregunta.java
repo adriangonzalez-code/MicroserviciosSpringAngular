@@ -1,4 +1,4 @@
-package com.driagon.microservicios.examenes.app.models;
+package com.driagon.common.examenes.app.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
