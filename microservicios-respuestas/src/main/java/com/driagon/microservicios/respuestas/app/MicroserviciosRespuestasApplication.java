@@ -1,21 +1,19 @@
-package com.driagon.microservicios.cursos.app;
+package com.driagon.microservicios.respuestas.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
-@EntityScan({"com.driagon.commons.alumnos.app.models",
-        "com.driagon.microservicios.cursos.app",
+@EntityScan({"com.driagon.microservicios.respuestas.app",
+        "com.driagon.commons.alumnos.app.models",
         "com.driagon.common.examenes.app.models"})
-public class MicroserviciosCursosApplication {
+public class MicroserviciosRespuestasApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MicroserviciosCursosApplication.class, args);
+        SpringApplication.run(MicroserviciosRespuestasApplication.class, args);
     }
 
 }

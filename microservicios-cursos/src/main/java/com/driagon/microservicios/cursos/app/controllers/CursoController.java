@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class CursoController extends CommonController<Curso, ICursoService> {
@@ -71,6 +72,20 @@ public class CursoController extends CommonController<Curso, ICursoService> {
     public ResponseEntity<?> buscarPorAlumno(@PathVariable Long id) {
 
         Curso curso = this.service.findCursoByAlumnoId(id);
+        if (curso != null) {
+            List<Long> examenesIds = (List<Long>) this.service.obtenerExamenesIdConRespuestasAlumno(id);
+
+            List<Examen> examenes = curso.getExamenes().stream().map(examen -> {
+                if (examenesIds.contains(examen.getId())) {
+                    examen.setRespondido(true);
+                }
+
+                return examen;
+            }).collect(Collectors.toList());
+
+            curso.setExamenes(examenes);
+        }
+
         return ResponseEntity.ok(curso);
     }
 

@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="microservicios-eureka" />
         <module name="commons-alumnos" />
+        <module name="microservicios-gateway" />
         <module name="microservicios-usuarios" />
         <module name="microservicios-examenes" />
         <module name="commons-examenes" />
         <module name="microservicios-cursos" />
         <module name="commons-microservicios" />
         <module name="microservicios-zuul" />
+        <module name="microservicios-respuestas" />
       </profile>
     </annotationProcessing>
   </component>
@@ -25,6 +27,8 @@
       <module name="microservicios-cursos" options="-parameters" />
       <module name="microservicios-eureka" options="-parameters" />
       <module name="microservicios-examenes" options="-parameters" />
+      <module name="microservicios-gateway" options="-parameters" />
+      <module name="microservicios-respuestas" options="-parameters" />
       <module name="microservicios-usuarios" options="-parameters" />
       <module name="microservicios-zuul" options="-parameters" />
     </option>

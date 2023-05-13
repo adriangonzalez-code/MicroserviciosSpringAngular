@@ -8,11 +8,11 @@
         <version>2.7.11</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.driagon.microservicios.cursos</groupId>
-    <artifactId>microservicios-cursos</artifactId>
+    <groupId>com.driagon.microservicios.respuestas</groupId>
+    <artifactId>microservicios-respuestas</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>microservicios-cursos</name>
-    <description>microservicios-cursos</description>
+    <name>microservicios-respuestas</name>
+    <description>microservicios-respuestas</description>
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2021.0.7</spring-cloud.version>
@@ -61,10 +61,6 @@
             <groupId>com.driagon.common.examenes</groupId>
             <artifactId>commons-examenes</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
     <dependencyManagement>

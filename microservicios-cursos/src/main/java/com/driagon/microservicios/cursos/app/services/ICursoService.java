@@ -6,4 +6,6 @@ import com.driagon.microservicios.cursos.app.models.Curso;
 public interface ICursoService extends ICommonService<Curso> {
 
     public Curso findCursoByAlumnoId(Long id);
+
+    public Iterable<Long> obtenerExamenesIdConRespuestasAlumno(Long alumnoId);
 }

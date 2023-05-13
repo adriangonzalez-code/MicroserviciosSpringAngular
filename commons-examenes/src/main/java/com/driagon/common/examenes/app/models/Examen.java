@@ -39,6 +39,9 @@ public class Examen implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Asignatura asignatura;
 
+    @Transient
+    private boolean respondido;
+
     public Examen() {
         this.preguntas = new ArrayList<>();
     }
@@ -92,6 +95,14 @@ public class Examen implements Serializable {
 
     public void setAsignatura(Asignatura asignatura) {
         this.asignatura = asignatura;
+    }
+
+    public boolean isRespondido() {
+        return respondido;
+    }
+
+    public void setRespondido(boolean respondido) {
+        this.respondido = respondido;
     }
 
     @PrePersist
