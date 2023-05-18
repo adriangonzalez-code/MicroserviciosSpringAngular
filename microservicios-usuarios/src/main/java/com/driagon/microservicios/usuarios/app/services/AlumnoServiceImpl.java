@@ -11,10 +11,15 @@ import java.util.List;
 @Service
 public class AlumnoServiceImpl extends CommonServiceImpl<Alumno, IAlumnoRepository> implements IAlumnoService {
 
-
     @Override
     @Transactional(readOnly = true)
     public List<Alumno> findByNombreOrApellido(String term) {
         return this.repository.findByNombreOrApellido(term);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Iterable<Alumno> findAllById(Iterable<Long> ids) {
+        return this.repository.findAllById(ids);
     }
 }

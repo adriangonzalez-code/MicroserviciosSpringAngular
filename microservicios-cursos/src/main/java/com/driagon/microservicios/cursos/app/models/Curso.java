@@ -2,6 +2,7 @@ package com.driagon.microservicios.cursos.app.models;
 
 import com.driagon.common.examenes.app.models.Examen;
 import com.driagon.commons.alumnos.app.models.Alumno;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -29,8 +30,13 @@ public class Curso implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    //@OneToMany(fetch = FetchType.LAZY)
+    @Transient
     private List<Alumno> alumnos;
+
+    @JsonIgnoreProperties(value = {"curso"}, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CursoAlumno> cursoAlumnos;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Examen> examenes;
@@ -38,6 +44,7 @@ public class Curso implements Serializable {
     public Curso() {
         this.alumnos = new ArrayList<Alumno>();
         this.examenes = new ArrayList<>();
+        this.cursoAlumnos = new ArrayList<>();
     }
 
     public Long getId() {
@@ -94,6 +101,22 @@ public class Curso implements Serializable {
 
     public void removeExamen(Examen examen) {
         this.examenes.remove(examen);
+    }
+
+    public List<CursoAlumno> getCursoAlumnos() {
+        return cursoAlumnos;
+    }
+
+    public void setCursoAlumnos(List<CursoAlumno> cursoAlumnos) {
+        this.cursoAlumnos = cursoAlumnos;
+    }
+
+    public void addCursoAlumno(CursoAlumno cursoAlumno) {
+        this.cursoAlumnos.add(cursoAlumno);
+    }
+
+    public void removeCursoAlumno(CursoAlumno cursoAlumno) {
+        this.cursoAlumnos.remove(cursoAlumno);
     }
 
     @PrePersist

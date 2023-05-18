@@ -8,4 +8,6 @@ import java.util.List;
 public interface IAlumnoService extends ICommonService<Alumno> {
 
     public List<Alumno> findByNombreOrApellido(String term);
+
+    Iterable<Alumno> findAllById(Iterable<Long> ids);
 }

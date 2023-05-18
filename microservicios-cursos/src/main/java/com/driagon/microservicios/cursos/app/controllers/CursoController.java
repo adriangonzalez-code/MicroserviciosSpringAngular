@@ -4,19 +4,27 @@ import com.driagon.common.examenes.app.models.Examen;
 import com.driagon.commons.alumnos.app.models.Alumno;
 import com.driagon.microservicios.commons.app.controllers.CommonController;
 import com.driagon.microservicios.cursos.app.models.Curso;
+import com.driagon.microservicios.cursos.app.models.CursoAlumno;
 import com.driagon.microservicios.cursos.app.services.ICursoService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 public class CursoController extends CommonController<Curso, ICursoService> {
+
+    @Value("${config.balanceador.test}")
+    private String balanceadorTest;
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editar(@Valid @RequestBody Curso curso, BindingResult result, @PathVariable Long id) {
@@ -47,7 +55,10 @@ public class CursoController extends CommonController<Curso, ICursoService> {
 
         Curso dbCurso = o.get();
         alumnos.forEach(a -> {
-            dbCurso.addAlumno(a);
+            CursoAlumno cursoAlumno = new CursoAlumno();
+            cursoAlumno.setAlumnoId(a.getId());
+            cursoAlumno.setCurso(dbCurso);
+            dbCurso.addCursoAlumno(cursoAlumno);
         });
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
@@ -62,8 +73,10 @@ public class CursoController extends CommonController<Curso, ICursoService> {
         }
 
         Curso dbCurso = o.get();
+        CursoAlumno cursoAlumno = new CursoAlumno();
+        cursoAlumno.setAlumnoId(alumno.getId());
 
-        dbCurso.removeAlumno(alumno);
+        dbCurso.removeCursoAlumno(cursoAlumno);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
     }
@@ -118,5 +131,30 @@ public class CursoController extends CommonController<Curso, ICursoService> {
         dbCurso.removeExamen(examen);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(dbCurso));
+    }
+
+    @GetMapping("/balanceador-test")
+    public ResponseEntity<?> balanceadorTest() {
+
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("balanceador", balanceadorTest);
+        response.put("cursos", this.service.findAll());
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping
+    public ResponseEntity<?> listar() {
+        List<Curso> cursos = ((List<Curso>) this.service.findAll()).stream().map(c -> {
+            c.getCursoAlumnos().forEach(ca -> {
+                Alumno alumno = new Alumno();
+                alumno.setId(ca.getAlumnoId());
+                c.addAlumno(alumno);
+            });
+
+            return c;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(cursos);
     }
 }
