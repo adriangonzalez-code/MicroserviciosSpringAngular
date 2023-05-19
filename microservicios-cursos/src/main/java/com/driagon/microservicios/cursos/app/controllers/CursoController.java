@@ -7,6 +7,7 @@ import com.driagon.microservicios.cursos.app.models.Curso;
 import com.driagon.microservicios.cursos.app.models.CursoAlumno;
 import com.driagon.microservicios.cursos.app.services.ICursoService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -156,5 +157,50 @@ public class CursoController extends CommonController<Curso, ICursoService> {
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok().body(cursos);
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<?> ver(@PathVariable Long id) {
+
+        Optional<Curso> o = this.service.findById(id);
+
+        if (o.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Curso curso = o.get();
+
+        if (!curso.getCursoAlumnos().isEmpty()) {
+            List<Long> ids = curso.getCursoAlumnos().stream().map(CursoAlumno::getAlumnoId).collect(Collectors.toList());
+
+            List<Alumno> alumnos = (List<Alumno>)this.service.obtenerAlumnoPorCurso(ids);
+            curso.setAlumnos(alumnos);
+        }
+
+        return ResponseEntity.ok().body(curso);
+    }
+
+    @Override
+    @GetMapping("/pagina")
+    public ResponseEntity<?> listar(Pageable pageable) {
+
+        Page<Curso> cursos = this.service.findAll(pageable).map(curso -> {
+            curso.getCursoAlumnos().forEach(ca -> {
+                Alumno alumno = new Alumno();
+                alumno.setId(ca.getAlumnoId());
+                curso.addAlumno(alumno);
+            });
+
+            return curso;
+        });
+
+        return ResponseEntity.ok().body(cursos);
+    }
+
+    @DeleteMapping("/eliminar-alumno/{id}")
+    public ResponseEntity<?> eliminarCursoAlumnoPorId(@PathVariable Long id) {
+        this.service.eliminarCursoAlumnoPorId(id);
+        return ResponseEntity.noContent().build();
     }
 }
