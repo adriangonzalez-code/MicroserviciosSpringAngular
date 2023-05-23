@@ -2,39 +2,34 @@ package com.driagon.microservicios.respuestas.app.models;
 
 import com.driagon.common.examenes.app.models.Pregunta;
 import com.driagon.commons.alumnos.app.models.Alumno;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "respuestas")
+@Document(collection = "respuestas")
 public class Respuesta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private String id;
 
-    @Column(name = "texto")
     private String texto;
 
-    // @ManyToOne(fetch = FetchType.LAZY)
-    @Transient
     private Alumno alumno;
 
-    @Column(name = "alumno_id")
     private Long alumnoId;
 
-    @OneToOne(fetch = FetchType.LAZY)
     private Pregunta pregunta;
 
-    public Long getId() {
+    private Long preguntaId;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,5 +63,13 @@ public class Respuesta implements Serializable {
 
     public void setAlumnoId(Long alumnoId) {
         this.alumnoId = alumnoId;
+    }
+
+    public Long getPreguntaId() {
+        return preguntaId;
+    }
+
+    public void setPreguntaId(Long preguntaId) {
+        this.preguntaId = preguntaId;
     }
 }

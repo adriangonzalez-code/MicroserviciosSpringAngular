@@ -1,14 +1,20 @@
 package com.driagon.microservicios.respuestas.app.repositories;
 
 import com.driagon.microservicios.respuestas.app.models.Respuesta;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-public interface IRespuestaRepository extends CrudRepository<Respuesta, Long> {
+public interface IRespuestaRepository extends MongoRepository<Respuesta, String> {
 
-    @Query("SELECT r FROM Respuesta r join fetch r.pregunta p join fetch p.examen e WHERE r.alumnoId = ?1 AND e.id = ?2")
+    @Query("{ 'alumnoId' : ?0, 'preguntaId' : { $in : ?1 } }")
+    public Iterable<Respuesta> findRespuestaByAlumnoByPreguntaIds(Long alumnoId, Iterable<Long> preguntaIds);
+
+    @Query("{ 'alumnoId' : ?0 }")
+    public Iterable<Respuesta> findByAlumnoId(Long alumnoId);
+
+    @Query("{ 'alumnoId' : ?0, 'pregunta.examen.id' : ?1 }")
     public Iterable<Respuesta> findRespuestaByAlumnoByExamen(Long alumnoId, Long examenId);
 
-    @Query("SELECT e.id FROM Respuesta r join r.pregunta p join p.examen e WHERE r.alumnoId = ?1 GROUP BY e.id")
-    public Iterable<Long> findExamenesIdsConRespuestaByAlumno(Long alumnoId);
+    @Query(value = "{ 'alumnoId' : ?0 }", fields = "{ 'pregunta.examen.id' : 1 }")
+    public Iterable<Respuesta> findExamenesIdsConRespuestasByAlumno(Long alumnoId);
 }

@@ -10,4 +10,7 @@ public interface IExamenRepository extends PagingAndSortingRepository<Examen, Lo
 
     @Query("SELECT e FROM Examen e WHERE e.nombre LIKE %?1%")
     public List<Examen> findByNombre(String term);
+
+    @Query("SELECT e.id FROM Pregunta p join p.examen e where p.id in ?1 group by e.id")
+    public Iterable<Long> findExamenesIdsConRespuestasByPreguntaIds(Iterable<Long> preguntaIds);
 }

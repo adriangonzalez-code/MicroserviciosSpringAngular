@@ -11,4 +11,6 @@ public interface IExamenService extends ICommonService<Examen> {
     public List<Examen> findByNombre(String term);
 
     Iterable<Asignatura> findAllAsignaturas();
+
+    public Iterable<Long> findExamenesIdsConRespuestasByPreguntaIds(Iterable<Long> preguntaIds);
 }

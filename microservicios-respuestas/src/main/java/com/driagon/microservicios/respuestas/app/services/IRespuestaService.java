@@ -9,4 +9,6 @@ public interface IRespuestaService {
     public Iterable<Respuesta> findRespuestaByAlumnoByExamen(Long alumnoId, Long examenId);
 
     public Iterable<Long> findExamenesIdsConRespuestaByAlumno(Long alumnoId);
+
+    public Iterable<Respuesta> findByAlumnoId(Long alumnoId);
 }
