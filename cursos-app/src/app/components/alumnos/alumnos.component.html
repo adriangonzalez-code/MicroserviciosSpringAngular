@@ -1,2 +1,30 @@
-<h1>{{ titulo }}</h1>
-<p>alumnos works!</p>
+<div class="card bg-light mb-3">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+    <button class="btn btn-primary my-2" routerLink="/alumnos/form">Crear</button>
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Creado en</th>
+        <th>Editar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let alumno of alumnos">
+        <td>{{ alumno.id }}</td>
+        <td>{{ alumno.nombre }}</td>
+        <td>{{ alumno.apellido }}</td>
+        <td>{{ alumno.email }}</td>
+        <td>{{ alumno.createAt | date : 'yyyy/MM/dd' }}</td>
+        <td>
+          <button class="btn btn-success btn-sm" [routerLink]="['/alumnos/form', alumno.id]">Editar</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -5,6 +5,8 @@ import com.driagon.microservicios.commons.app.services.CommonServiceImpl;
 import com.driagon.microservicios.usuarios.app.adapters.ICursoFeignClient;
 import com.driagon.microservicios.usuarios.app.repositories.IAlumnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +40,17 @@ public class AlumnoServiceImpl extends CommonServiceImpl<Alumno, IAlumnoReposito
     public void deleteById(Long id) {
         super.deleteById(id);
         this.eliminarCursoAlumnoPorId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Iterable<Alumno> findAll() {
+        return this.repository.findAllByOrderByIdAsc();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Alumno> findAll(Pageable pageable) {
+        return this.repository.findAllByOrderByIdAsc(pageable);
     }
 }
