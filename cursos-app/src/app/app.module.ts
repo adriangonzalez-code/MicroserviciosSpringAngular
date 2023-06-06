@@ -10,6 +10,8 @@ import { LayoutModule } from "./layout/layout.module";
 import { HttpClientModule } from "@angular/common/http";
 import { AlumnosFormComponent } from './components/alumnos/alumnos-form.component';
 import { FormsModule } from "@angular/forms";
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { FormsModule } from "@angular/forms";
     AppRoutingModule,
     LayoutModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
