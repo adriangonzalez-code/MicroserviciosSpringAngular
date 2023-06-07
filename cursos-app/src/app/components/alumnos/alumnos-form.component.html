@@ -26,6 +26,18 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="archivo">Imagen</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
+          </div>
+          <div class="custom-file">
+            <input (change)="seleccionarFoto($event)" type="file" class="custom-file-input" id="archivo" aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="archivo">Seleccionar Foto</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
         <button type="button" class="btn btn-primary" (click)="model.id ? editar() : crear()">{{ model.id ? 'Editar' : 'Crear' }}</button>
       </div>
     </form>

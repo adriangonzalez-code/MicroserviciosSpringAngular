@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlumnoService } from "../../services/alumno.service";
 import { Alumno } from "../../models/alumno";
 import { CommonListarComponent } from "../common-listar.component";
+import { BASE_ENDPOINT } from "../../config/app";
 
 @Component({
   selector: 'app-alumnos',
@@ -9,6 +10,8 @@ import { CommonListarComponent } from "../common-listar.component";
   styleUrls: ['./alumnos.component.css']
 })
 export class AlumnosComponent extends CommonListarComponent<Alumno, AlumnoService> {
+
+  baseEndpoint : string = BASE_ENDPOINT + '/alumnos';
 
   constructor(service: AlumnoService) {
     super(service);
