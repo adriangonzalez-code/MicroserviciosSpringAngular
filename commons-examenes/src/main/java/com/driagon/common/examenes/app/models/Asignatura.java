@@ -21,11 +21,11 @@ public class Asignatura implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
-    @JsonIgnoreProperties(value = {"hijos"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"hijos", "handler", "hibernateLazyInitializer"}, allowSetters = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Asignatura padre;
 
-    @JsonIgnoreProperties(value = {"padre"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"padre", "handler", "hibernateLazyInitializer"}, allowSetters = true)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "padre", cascade = CascadeType.ALL)
     private List<Asignatura> hijos;
 
