@@ -1,6 +1,7 @@
 package com.driagon.microservicios.examenes.app.controllers;
 
 import com.driagon.common.examenes.app.models.Examen;
+import com.driagon.common.examenes.app.models.Pregunta;
 import com.driagon.microservicios.commons.app.controllers.CommonController;
 import com.driagon.microservicios.examenes.app.services.IExamenService;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class ExamenController extends CommonController<Examen, IExamenService> {
@@ -36,10 +38,12 @@ public class ExamenController extends CommonController<Examen, IExamenService> {
         Examen examenDb = o.get();
         examenDb.setNombre(examen.getNombre());
 
-        examenDb.getPreguntas()
+        List<Pregunta> eliminadas = examenDb.getPreguntas()
                 .stream()
                 .filter(pdb -> !examen.getPreguntas().contains(pdb))
-                .forEach(examenDb::removePregunta);
+                .collect(Collectors.toList());
+
+        eliminadas.forEach(examenDb::removePregunta);
 
         examenDb.setPreguntas(examen.getPreguntas());
         examenDb.setAsignaturaHija(examen.getAsignaturaHija());

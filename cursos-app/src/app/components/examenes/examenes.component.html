@@ -7,28 +7,30 @@
     </div>
     <table class="table table-hover table-striped" *ngIf="lista?.length > 0">
       <thead>
-      <tr>
-        <th>id</th>
-        <th>Nombre</th>
-        <th>Asignaturas</th>
-        <th>Creado en</th>
-        <th>Editar</th>
-        <th>Eliminar</th>
-      </tr>
+        <tr>
+          <th>id</th>
+          <th>Nombre</th>
+          <th>Asignaturas</th>
+          <th>Preguntas</th>
+          <th>Creado en</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let examen of lista">
-        <td>{{ examen.id }}</td>
-        <td>{{ examen.nombre }}</td>
-        <td>{{ examen.asignaturaHija?.nombre }} -> {{ examen.asignaturaPadre?.nombre }}</td>
-        <td>{{ examen.createAt | date : 'yyyy/MM/dd' }}</td>
-        <td>
-          <button class="btn btn-success btn-sm" [routerLink]="['/examenes/form', examen.id]">Editar</button>
-        </td>
-        <td>
-          <button class="btn btn-danger btn-sm" (click)="eliminar(examen)">Eliminar</button>
-        </td>
-      </tr>
+        <tr *ngFor="let examen of lista">
+          <td>{{ examen.id }}</td>
+          <td>{{ examen.nombre }}</td>
+          <td>{{ examen.asignaturaHija?.nombre }} -> {{ examen.asignaturaPadre?.nombre }}</td>
+          <td>{{ examen.preguntas.length }}</td>
+          <td>{{ examen.createAt | date : 'yyyy/MM/dd' }}</td>
+          <td>
+            <button class="btn btn-success btn-sm" [routerLink]="['/examenes/form', examen.id]">Editar</button>
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="eliminar(examen)">Eliminar</button>
+          </td>
+        </tr>
       </tbody>
     </table>
     <mat-paginator [length]="totalRegistros"

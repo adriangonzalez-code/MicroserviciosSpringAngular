@@ -15,6 +15,7 @@ export class ExamenFormComponent extends CommonFormComponent<Examen, ExamenServi
 
   asignaturasPadre: Asignatura[] = [];
   asignaturasHija: Asignatura[] = [];
+  errorPreguntas: string;
 
   constructor(service: ExamenService, router: Router, route: ActivatedRoute) {
     super(service, router, route);
@@ -41,6 +42,28 @@ export class ExamenFormComponent extends CommonFormComponent<Examen, ExamenServi
     });
   }
 
+  public override crear() : void {
+    if (this.model.preguntas.length === 0) {
+    this.errorPreguntas = 'Exámen debe tener preguntas';
+      return;
+    }
+
+    this.errorPreguntas = undefined;
+    this.eliminarPreguntasVacias();
+    super.crear();
+  }
+
+  public override editar() : void {
+    if (this.model.preguntas.length === 0) {
+      this.errorPreguntas = 'Exámen debe tener preguntas';
+      return;
+    }
+
+    this.errorPreguntas = undefined;
+    this.eliminarPreguntasVacias();
+    super.editar();
+  }
+
   public cargarHijos() : void {
     this.asignaturasHija = this.model.asignaturaPadre ? this.model.asignaturaPadre.hijos : [];
   }
@@ -64,5 +87,9 @@ export class ExamenFormComponent extends CommonFormComponent<Examen, ExamenServi
 
   public eliminarPregunta(pregunta: Pregunta) : void {
     this.model.preguntas = this.model.preguntas.filter(p => pregunta.texto !== p.texto);
+  }
+
+  public eliminarPreguntasVacias() : void {
+    this.model.preguntas = this.model.preguntas.filter(p => p.texto != null && p.texto.length > 0);
   }
 }
