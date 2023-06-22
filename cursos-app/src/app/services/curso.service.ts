@@ -33,4 +33,8 @@ export class CursoService extends CommonService<Curso> {
   public eliminarExamen(curso : Curso, examen : Examen) : Observable<Curso> {
     return this.http.put<Curso>(`${this.baseEndpoint}/${curso.id}/eliminar-examen`, examen, {headers: this.cabeceras});
   }
+
+  public obtenerCursoPorAlumnoId(alumno : Alumno) : Observable<Curso> {
+    return this.http.get<Curso>(`${this.baseEndpoint}/alumno/${alumno.id}`);
+  }
 }
