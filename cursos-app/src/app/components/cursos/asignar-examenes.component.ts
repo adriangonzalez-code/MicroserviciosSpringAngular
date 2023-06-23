@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Curso } from "../../models/curso";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CursoService } from "../../services/curso.service";
@@ -8,9 +8,8 @@ import { Examen } from "../../models/examen";
 import { flatMap, map } from "rxjs";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import Swal, {SweetAlertResult} from "sweetalert2";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {Alumno} from "../../models/alumno";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
 
 @Component({
   selector: 'app-asignar-examenes',

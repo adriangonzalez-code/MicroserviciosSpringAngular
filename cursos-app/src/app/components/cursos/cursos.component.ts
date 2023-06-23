@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonListarComponent } from "../common-listar.component";
 import { Curso } from "../../models/curso";
 import { CursoService } from "../../services/curso.service";

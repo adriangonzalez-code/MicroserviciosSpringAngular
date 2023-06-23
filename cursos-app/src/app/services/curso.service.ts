@@ -5,7 +5,7 @@ import { Curso } from "../models/curso";
 import { BASE_ENDPOINT } from "../config/app";
 import { Alumno } from "../models/alumno";
 import { Observable } from "rxjs";
-import {Examen} from "../models/examen";
+import { Examen } from "../models/examen";
 
 @Injectable({
   providedIn: 'root'

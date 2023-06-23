@@ -1,4 +1,4 @@
-import {Directive, OnInit} from '@angular/core';
+import { Directive, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { Generic } from "../models/generic";

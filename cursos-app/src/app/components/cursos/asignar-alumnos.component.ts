@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Curso } from "../../models/curso";
 import { ActivatedRoute } from "@angular/router";
 import { CursoService } from "../../services/curso.service";
@@ -6,8 +6,8 @@ import { AlumnoService } from "../../services/alumno.service";
 import { Alumno } from "../../models/alumno";
 import { SelectionModel } from "@angular/cdk/collections";
 import Swal, {SweetAlertResult} from "sweetalert2";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
 
 @Component({
   selector: 'app-asignar-alumnos',

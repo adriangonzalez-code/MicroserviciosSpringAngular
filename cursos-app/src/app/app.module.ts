@@ -27,6 +27,7 @@ import { ResponderExamenComponent } from './components/alumnos/responder-examen.
 import { ResponderExamenModalComponent } from './components/alumnos/responder-examen-modal.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { VerExamenModalComponent } from './components/alumnos/ver-examen-modal.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
     AsignarAlumnosComponent,
     AsignarExamenesComponent,
     ResponderExamenComponent,
-    ResponderExamenModalComponent
+    ResponderExamenModalComponent,
+    VerExamenModalComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    ResponderExamenModalComponent
+    ResponderExamenModalComponent,
+    VerExamenModalComponent
   ]
 })
 export class AppModule { }

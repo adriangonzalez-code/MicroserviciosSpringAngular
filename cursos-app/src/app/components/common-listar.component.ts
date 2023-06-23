@@ -1,4 +1,4 @@
-import {Component, Directive, OnInit, ViewChild} from '@angular/core';
+import { Directive, OnInit, ViewChild } from '@angular/core';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { Generic } from "../models/generic";
